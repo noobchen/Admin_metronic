@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:config.properties"/>
+    </bean>
+
+    <import resource="classpath:spring/spring-database.xml"/>
+
+
+    <mvc:annotation-driven/>
+    <context:component-scan base-package="com.admin"/>
+
+
+    <mvc:interceptors>
+        <!-- 多个拦截器,顺序执行 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/*"/>
+            <bean class="com.admin.common.spring.mvc.interceptor.RequestInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <bean class="com.admin.common.spring.mvc.resolver.ExceptionResolver"/>
+
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+        <property name="viewClass">
+            <value>org.springframework.web.servlet.view.tiles2.TilesView</value>
+        </property>
+    </bean>
+
+    <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+        <property name="definitions">
+            <list>
+                <value>/WEB-INF/tiles-def.xml</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="mappingJacksonHttpMessageConverter"
+          class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+
+
+</beans>

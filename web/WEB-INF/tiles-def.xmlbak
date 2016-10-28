@@ -1,0 +1,111 @@
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <definition name="template" template="/WEB-INF/views/main.jsp">
+        <put-attribute name="navbar" value="/WEB-INF/views/navbar.jsp"/>
+        <put-attribute name="subnav" value="/WEB-INF/views/subnav.jsp"/>
+        <put-attribute name="breadcrumb" value="/WEB-INF/views/breadcrumb.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/content.jsp"/>
+        <put-attribute name="body" value="/WEB-INF/views/body.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/footer.jsp"/>
+    </definition>
+
+    <definition name="main" extends="template"
+                preparer="com.admin.common.spring.mvc.tiles.TilesContentViewPreparer">
+        <put-attribute name="navbar" value="/WEB-INF/views/navbar.jsp"/>
+    </definition>
+
+    <definition name="resource" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/permission/resource.jsp"/>
+    </definition>
+
+    <definition name="role" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/permission/role.jsp"/>
+    </definition>
+
+    <definition name="operator" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/permission/operator.jsp"/>
+    </definition>
+
+    <definition name="personal" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/permission/personal.jsp"/>
+    </definition>
+
+    <definition name="login" template="/WEB-INF/views/login/login.jsp"/>
+    <definition name="error" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/error/error.jsp"/>
+    </definition>
+    <definition name="exception" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/error/exception.jsp"/>
+    </definition>
+
+
+    <!--应用推送-->
+    <definition name="task" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/task/list.jsp"/>
+    </definition>
+    <definition name="newTask" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/task/newTask.jsp"/>
+    </definition>
+
+    <!--链接推动-->
+    <definition name="linkpush" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/linkpush/linkpushlist.jsp"/>
+    </definition>
+    <definition name="newlinkpush" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/linkpush/newlinkpush.jsp"/>
+    </definition>
+
+    <!--广告推动-->
+    <definition name="adpush" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/adpush/adpushlist.jsp"/>
+    </definition>
+    <definition name="newadpush" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/adpush/newadpush.jsp"/>
+    </definition>
+
+    <definition name="resultQuery" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/query/resultQuery.jsp"/>
+    </definition>
+
+    <!--应用消息详细-->
+    <definition name="pushReport" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/query/pushReport.jsp"/>
+    </definition>
+
+    <!--数据分析详细-->
+    <definition name="resultDetail" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/query/resultDetail.jsp"/>
+    </definition>
+
+    <!--应用任务详细信息-->
+    <definition name="App" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/detail/appMsg.jsp"/>
+    </definition>
+
+    <!--消息任务详细信息-->
+    <definition name="message" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/detail/adMsg.jsp"/>
+    </definition>
+    <!--其他推送-->
+    <definition name="otherpush" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/otherpush/otherpushlist.jsp"/>
+    </definition>
+    <definition name="newotherpush" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/otherpush/otherpushadd.jsp"/>
+    </definition>
+
+    <!--渠道管理-->
+    <definition name="channelInfo" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/channel/channelInfo.jsp"/>
+    </definition>
+
+    <definition name="user" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/user/list.jsp"/>
+    </definition>
+
+    <definition name="install" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/install/list.jsp"/>
+    </definition>
+</tiles-definitions>

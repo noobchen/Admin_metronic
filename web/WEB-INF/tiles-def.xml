@@ -1,0 +1,43 @@
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <definition name="template" template="/WEB-INF/views/main.jsp">
+        <put-attribute name="pageStyle" value="/WEB-INF/views/pageStyle.jsp"/>
+        <put-attribute name="header" value="/WEB-INF/views/header.jsp"/>
+        <put-attribute name="sidebarMenu" value="/WEB-INF/views/sidebarMenu.jsp"/>
+        <put-attribute name="quickSidebar" value="/WEB-INF/views/quickSidebar.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/content.jsp"/>
+        <put-attribute name="footer" value="/WEB-INF/views/footer.jsp"/>
+        <put-attribute name="pageScript" value="/WEB-INF/views/pageScript.jsp"/>
+        <!--<put-attribute name="megaMenu" value="/WEB-INF/views/megaMenu.jsp"/>-->
+        <!--<put-attribute name="topMenu" value="/WEB-INF/views/topMenu.jsp"/>-->
+        <!--<put-attribute name="userBar" value="/WEB-INF/views/userBar.jsp"/>-->
+    </definition>
+
+    <definition name="login" template="/WEB-INF/views/login/login.jsp"/>
+
+    <definition name="main" extends="template"/>
+
+    <definition name="resource" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/common/resource.jsp"/>
+        <put-attribute name="pageScript" value="/WEB-INF/views/common/resourceScript.jsp"/>
+    </definition>
+
+    <definition name="role" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/common/role.jsp"/>
+        <put-attribute name="pageScript" value="/WEB-INF/views/common/roleScript.jsp"/>
+    </definition>
+
+    <definition name="operator" extends="template">
+        <put-attribute name="pageStyle" value="/WEB-INF/views/pageLevel/selectStyle.jsp"/>
+        <put-attribute name="content" value="/WEB-INF/views/common/operator.jsp"/>
+        <put-attribute name="pageScript" value="/WEB-INF/views/common/operatorScript.jsp"/>
+    </definition>
+
+    <definition name="personal" extends="template">
+        <put-attribute name="content" value="/WEB-INF/views/common/personal.jsp"/>
+        <put-attribute name="pageScript" value="/WEB-INF/views/common/personalScript.jsp"/>
+    </definition>
+
+</tiles-definitions>

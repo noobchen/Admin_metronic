@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="operator">
+    <resultMap id="operatorMap" type="com.admin.common.permission.model.Operator">
+        <id property="id" column="id"/>
+        <result property="operatorName" column="operator_name"/>
+        <result property="operatorCompany" column="operator_company"/>
+        <result property="operatorEmail" column="operator_email"/>
+        <result property="operatorPhone" column="operator_phone"/>
+        <result property="account" column="account"/>
+        <result property="password" column="password"/>
+        <result property="accountType" column="account_type"/>
+        <result property="accountTypeId" column="account_type_id"/>
+        <result property="status" column="status"/>
+        <result property="remark" column="remark"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <collection property="roles" column="id" select="findRoles"/>
+    </resultMap>
+
+    <resultMap id="roleMap" type="com.admin.common.permission.model.Role">
+        <id property="id" column="id"/>
+        <result property="name" column="role_name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <association property="resources" column="id" select="role.findResources"/>
+    </resultMap>
+
+    <select id="query" parameterType="java.util.HashMap" resultMap="operatorMap">
+        SELECT
+            id,
+            operator_name,
+            operator_company,
+            operator_email,
+            operator_phone,
+            account,
+            password,
+            account_type,
+            account_type_id,
+            status,
+            remark,
+            create_time,
+            update_time
+        FROM
+          tbl_operator_info
+        <where>
+            <if test="null != operatorName and operatorName != ''">
+                AND operator_name LIKE CONCAT(CONCAT('%', #{operatorName}),'%')
+            </if>
+            <if test="null != operatorCompany and operatorCompany != ''">
+                AND operator_company LIKE CONCAT(CONCAT('%', #{operatorCompany}),'%')
+            </if>
+            <if test="null != account and account != ''">
+                AND account = #{account}
+            </if>
+        </where>
+        ORDER BY id DESC
+    </select>
+
+
+    <select id="find" parameterType="java.lang.String" resultMap="operatorMap">
+        SELECT
+            id,
+            operator_name,
+            operator_company,
+            operator_email,
+            operator_phone,
+            account,
+            password,
+            account_type,
+            account_type_id,
+            status,
+            remark,
+            create_time,
+            update_time
+        FROM
+            tbl_operator_info
+        WHERE
+            account =#{account}
+    </select>
+
+    <select id="findRoles" parameterType="java.lang.Integer" resultMap="roleMap">
+        SELECT
+           b.id,
+           b.role_name,
+           b.create_time,
+           b.update_time
+         FROM
+           tbl_operator_role a,tbl_role_info b
+         WHERE
+           a.role_id = b.id
+          AND
+           a.operator_id = #{operatorId}
+    </select>
+
+    <insert id="add" parameterType="com.admin.common.permission.model.Operator" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO
+             tbl_operator_info(
+                operator_name,
+                operator_company,
+                operator_email,
+                operator_phone,
+                account,
+                password,
+                account_type,
+                account_type_id,
+                remark
+             )
+           VALUES(
+             #{operatorName,jdbcType=VARCHAR},
+             #{operatorCompany,jdbcType=VARCHAR},
+             #{operatorEmail,jdbcType=VARCHAR},
+             #{operatorPhone,jdbcType=VARCHAR},
+             #{account,jdbcType=VARCHAR},
+             #{password,jdbcType=VARCHAR},
+             #{accountType,jdbcType=VARCHAR},
+             #{accountTypeId,jdbcType=INTEGER},
+             #{remark,jdbcType=VARCHAR}
+           )
+    </insert>
+
+    <insert id="addRole" parameterType="com.admin.common.permission.model.Operator">
+        INSERT INTO
+            tbl_operator_role(
+              operator_id,
+              role_id
+            )
+          VALUES
+        <foreach collection="roles" item="item" index="index" separator=",">
+            (
+            #{id,jdbcType=INTEGER},
+            #{item.id,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+    <update id="edit" parameterType="com.admin.common.permission.model.Operator">
+        UPDATE
+            tbl_operator_info
+          SET
+            operator_name =#{operatorName,jdbcType=VARCHAR},
+            operator_company =#{operatorCompany,jdbcType=VARCHAR},
+            operator_email=#{operatorEmail,jdbcType=VARCHAR},
+            operator_phone =#{operatorPhone,jdbcType=VARCHAR},
+            <if test="null != password and password !=''">
+                password=#{password,jdbcType=VARCHAR},
+            </if>
+            <if test="null != status and status !=''">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            account_type = #{accountType,jdbcType=VARCHAR},
+            account_type_id = #{accountTypeId,jdbcType=INTEGER},
+            remark =#{remark,jdbcType=VARCHAR},
+            update_time = NOW()
+         WHERE
+            id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="com.admin.common.permission.model.Operator">
+        DELETE FROM
+            tbl_operator_info
+           WHERE
+            id = #{id}
+    </delete>
+
+    <delete id="deleteRole" parameterType="com.admin.common.permission.model.Operator">
+        DELETE FROM
+            tbl_operator_role
+          WHERE
+            operator_id = #{id}
+    </delete>
+
+    <delete id="deleteOperatorRole" parameterType="com.admin.common.permission.model.Role">
+        DELETE FROM
+            tbl_operator_role
+          WHERE
+            role_id = #{id}
+    </delete>
+</mapper>
