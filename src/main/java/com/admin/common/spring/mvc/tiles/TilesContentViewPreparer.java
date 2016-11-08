@@ -8,8 +8,8 @@ import com.admin.common.spring.mvc.session.SessionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.tiles.Attribute;
 import org.apache.tiles.AttributeContext;
-import org.apache.tiles.context.TilesRequestContext;
 import org.apache.tiles.preparer.ViewPreparer;
+import org.apache.tiles.request.Request;
 
 import java.util.List;
 import java.util.Map;
@@ -23,7 +23,7 @@ import java.util.Map;
  */
 public class TilesContentViewPreparer implements ViewPreparer {
     @Override
-    public void execute(TilesRequestContext tilesRequestContext, AttributeContext attributeContext) {
+    public void execute(Request tilesRequestContext, AttributeContext attributeContext) {
         String url = SessionUtils.getRequestParam("rurl");
         if (StringUtils.isNotEmpty(url)) {
             url = UrlEncryption.decoding(url);
