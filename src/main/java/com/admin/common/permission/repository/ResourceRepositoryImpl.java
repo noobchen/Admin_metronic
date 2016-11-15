@@ -28,14 +28,14 @@ public class ResourceRepositoryImpl extends SqlSessionTemplate implements Resour
     @Override
     public PageInfo query(PageInfo pageInfo, HashMap<String, Object> queryParams) {
         queryParams.put("pageInfo", pageInfo);
-        List<Resource> list = (List<Resource>) selectList("resource.query", queryParams);
+        List<Resource> list = selectList("resource.query", queryParams);
         pageInfo.setResult(list);
         return pageInfo;
     }
 
     @Override
     public List<Resource> query(HashMap<String, Object> queryParams) {
-        return (List<Resource>) selectList("resource.query", queryParams);
+        return  selectList("resource.query", queryParams);
     }
 
     @Override

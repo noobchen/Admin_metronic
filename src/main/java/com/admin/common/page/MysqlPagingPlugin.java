@@ -1,6 +1,5 @@
 package com.admin.common.page;
 
-import org.apache.ibatis.builder.xml.dynamic.ForEachSqlNode;
 import org.apache.ibatis.executor.statement.BaseStatementHandler;
 import org.apache.ibatis.executor.statement.RoutingStatementHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
@@ -10,8 +9,10 @@ import org.apache.ibatis.mapping.ParameterMapping;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.property.PropertyTokenizer;
+import org.apache.ibatis.scripting.xmltags.ForEachSqlNode;
 import org.apache.ibatis.session.Configuration;
 import org.apache.ibatis.type.TypeHandlerRegistry;
+import org.apache.ibatis.type.UnknownTypeHandler;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
@@ -26,7 +27,7 @@ import java.util.Properties;
  * Time: 下午2:43
  * Description: to write something
  */
-@Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class})})
+@Intercepts({@Signature(type = StatementHandler.class, method = "prepare", args = {Connection.class, Integer.class})})
 public class MysqlPagingPlugin implements Interceptor {
     //private String dialect;
 
@@ -109,7 +110,8 @@ public class MysqlPagingPlugin implements Interceptor {
                     value = metaObject.getValue(propertyName);
                 }
 
-                pm.getTypeHandler().setParameter(ps, i++, value, pm.getJdbcType());
+                UnknownTypeHandler typeHandler = (UnknownTypeHandler) pm.getTypeHandler();
+                typeHandler.setParameter(ps, i++, value, pm.getJdbcType());
             }
             ResultSet rs = ps.executeQuery();
             rs.next();

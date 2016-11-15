@@ -32,14 +32,14 @@ public class OperatorRepositoryImpl extends SqlSessionTemplate implements Operat
     @Override
     public PageInfo query(PageInfo pageInfo, HashMap<String, Object> queryParams) {
         queryParams.put("pageInfo", pageInfo);
-        List<Operator> operators = (List<Operator>) selectList("operator.query", queryParams);
+        List<Operator> operators = selectList("operator.query", queryParams);
         pageInfo.setResult(operators);
         return pageInfo;
     }
 
     @Override
     public List<Operator> query(HashMap<String, Object> queryParams) {
-        return (List<Operator>) selectList("operator.query", queryParams);
+        return  selectList("operator.query", queryParams);
     }
 
 //    @Override

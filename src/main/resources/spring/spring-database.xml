@@ -14,10 +14,21 @@
         <property name="maxIdleTime" value="${database.maxIdleTime}"/>
     </bean>
 
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <bean id="defaultSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
         <property name="dataSource" ref="dataSource"/>
+        <!-- 自动扫描mapping.xml文件  路径根据实际情况配置-->
+        <!--<property name="mapperLocations" value="classpath*:mybatis/yiyuangou/*.xml"></property>-->
     </bean>
+
+    <!-- MyBatis 动态实现 -->
+    <!--<bean id="mapperScannerConfigurer" class="org.mybatis.spring.mapper.MapperScannerConfigurer">-->
+        <!-- 对Dao 接口动态实现，需要知道接口在哪,可指定多个包，包与包之间用逗号或分号分隔 -->
+        <!--路径根据实际情况配置-->
+        <!--<property name="basePackage" value="com.dianwan.yiyuangou.dao"/>-->
+        <!--正常情况下 没 有 必 要 去 指 定 SqlSessionFactory 或 SqlSessionTemplate-->
+        <!--<property name="sqlSessionFactoryBeanName" value="defaultSqlSessionFactory"/>-->
+    <!--</bean>-->
 
     <!--<bean name="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">-->
     <!--<property name="dataSource" ref="dataSource"/>-->

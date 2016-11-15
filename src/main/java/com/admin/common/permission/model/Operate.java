@@ -2,7 +2,8 @@ package com.admin.common.permission.model;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.security.Timestamp;
+import java.util.Date;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,8 +16,8 @@ public class Operate {
     private Integer id;
     private Integer resourceId;
     private OperateType operateType;
-    private Timestamp createTime;
-    private Timestamp updateTime;
+    private Date createTime;
+    private Date updateTime;
 
     public Integer getResourceId() {
         return resourceId;
@@ -42,19 +43,19 @@ public class Operate {
         this.id = id;
     }
 
-    public Timestamp getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public Timestamp getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
-    public void setUpdateTime(Timestamp updateTime) {
+    public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
 

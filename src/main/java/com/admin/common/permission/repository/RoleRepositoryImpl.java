@@ -28,19 +28,19 @@ public class RoleRepositoryImpl extends SqlSessionTemplate implements RoleReposi
     @Override
     public PageInfo query(PageInfo pageInfo, HashMap<String, Object> queryParams) {
         queryParams.put("pageInfo", pageInfo);
-        List<Role> list = (List<Role>) selectList("role.query", queryParams);
+        List<Role> list = selectList("role.query", queryParams);
         pageInfo.setResult(list);
         return pageInfo;
     }
 
     @Override
     public List<Role> query(HashMap<String, Object> queryParams) {
-        return (List<Role>) selectList("role.query", queryParams);
+        return  selectList("role.query", queryParams);
     }
 
     @Override
     public List<Resource> queryResource(Integer roleId) {
-        return (List<Resource>) selectList("role.findResources",roleId);
+        return selectList("role.findResources",roleId);
     }
 
     @Override
