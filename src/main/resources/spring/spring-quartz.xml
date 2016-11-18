@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <bean id="quartzTaskDemo"
+          class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+        <!-- 调用的类 -->
+        <property name="jobClass" value="com.admin.quartz.QuartzTaskDemo"/>
+    </bean>
+
+    <!-- 定义触发时间 -->
+    <bean id="quartzTaskDemoTime" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+        <property name="jobDetail">
+            <ref bean="quartzTaskDemo"/>
+        </property>
+        <!-- cron表达式 -->
+        <property name="cronExpression">
+            <!-- 每天凌晨1点执行-->
+            <!--<value>0 0 0 * * ?</value>-->
+            <!-- 每分钟-->
+            <value>0 0/1 * * * ?</value>
+        </property>
+    </bean>
+
+
+    <bean id="startQuartz" lazy-init="false" autowire="no"
+          class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+        <property name="triggers">
+            <list>
+                <ref bean="quartzTaskDemoTime"/>
+            </list>
+        </property>
+    </bean>
+
+
+</beans>
