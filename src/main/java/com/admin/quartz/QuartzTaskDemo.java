@@ -9,10 +9,9 @@ import org.springframework.stereotype.Service;
  * Created by cyc on 2016/11/18.
  */
 @Service
-public class QuartzTaskDemo extends QuartzJobBean {
+public class QuartzTaskDemo {
 
-    @Override
-    protected void executeInternal(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        System.out.println("QuartzTaskDemo.executeInternal.........");
+    public void doSomething(){
+        System.out.println("QuartzTaskDemo.doSomething.........");
     }
 }
