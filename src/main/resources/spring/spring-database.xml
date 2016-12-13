@@ -3,15 +3,16 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" lazy-init="false">
-        <property name="driverClass" value="${database.driverClass}"/>
-        <property name="jdbcUrl" value="${database.jdbcUrl}"/>
-        <property name="user" value="${database.user}"/>
-        <property name="password" value="${database.password}"/>
-        <property name="initialPoolSize" value="${database.initialPoolSize}"/>
-        <property name="minPoolSize" value="${database.minPoolSize}"/>
-        <property name="maxPoolSize" value="${database.maxPoolSize}"/>
-        <property name="maxIdleTime" value="${database.maxIdleTime}"/>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" lazy-init="false">
+        <property name="DriverClassName" value="${database.driverClass}"/>
+        <property name="Url" value="${database.jdbcUrl}"/>
+        <property name="Username" value="${database.user}"/>
+        <property name="Password" value="${database.password}"/>
+        <property name="InitialSize" value="${database.initialPoolSize}"/>
+        <property name="MinIdle" value="${database.minPoolSize}"/>
+        <property name="MaxActive" value="${database.maxPoolSize}"/>
+        <property name="MinEvictableIdleTimeMillis" value="${database.maxIdleTime}"/>
+        <property name="connectionInitSqls" value="set names utf8mb4;"/>
     </bean>
 
     <bean id="defaultSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
